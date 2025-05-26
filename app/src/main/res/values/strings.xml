@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">重力球游戏</string>
+    <string name="game_title">重力球游戏</string>
+    <string name="select_difficulty">选择难度</string>
+    <string name="easy">简单</string>
+    <string name="medium">中等</string>
+    <string name="hard">困难</string>
+    <string name="start_game">开始游戏</string>
+    <string name="reset">重置</string>
+    <string name="menu">菜单</string>
+    <string name="level_format">关卡: 1 / 3</string>
+    
+    <!-- 导航抽屉相关字符串 -->
+    <string name="navigation_drawer_open">打开导航抽屉</string>
+    <string name="navigation_drawer_close">关闭导航抽屉</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="logout">退出登录</string>
+    <string name="leaderboard">排行榜</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+</resources>

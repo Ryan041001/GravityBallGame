@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@drawable/main_background"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_challenge_mode"
+        android:padding="12dp"
+        android:elevation="8dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="用户头像" />
+
+    <TextView
+        android:id="@+id/nav_header_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="未登录"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_white"
+        android:fontFamily="sans-serif-medium"
+        android:shadowColor="#80000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/nav_header_best_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="最佳成绩: 暂无"
+        android:textColor="@color/primary_blue_light"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

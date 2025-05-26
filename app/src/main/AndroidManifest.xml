@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <!-- 添加传感器权限 -->
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GravityBallGame"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- 关卡Activity -->
+        <activity
+            android:name=".LevelActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Level1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Level2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Level3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomLevelActivity"
+            android:exported="false" />
+        <!-- 添加挑战模式Activity -->
+        <activity
+            android:name=".LevelChallengeActivity"
+            android:exported="false" />
+        <!-- 添加排行榜Activity -->
+        <activity
+            android:name=".LeaderboardActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+    </application>
+
+</manifest>

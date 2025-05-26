@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_login"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="登录/注册" />
+        <item
+            android:id="@+id/nav_leaderboard"
+            android:icon="@android:drawable/ic_menu_sort_by_size"
+            android:title="排行榜" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
+            android:title="退出登录" />
+    </group>
+</menu>
