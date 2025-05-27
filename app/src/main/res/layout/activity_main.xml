@@ -52,91 +52,67 @@
             android:letterSpacing="0.05"
             android:layout_marginBottom="32dp"/>
 
-        <TextView
-            android:id="@+id/select_difficulty_text"
+        
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="选择难度开始游戏:"
-            android:textSize="16sp"
-            android:textColor="@color/text_primary"
-            android:fontFamily="sans-serif"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="24dp"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="8dp">
 
-        <RadioGroup
-            android:id="@+id/difficulty_radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
-
-            <RadioButton
-                android:id="@+id/radio_easy"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="简单"
-                android:textColor="@color/text_primary"
-                android:buttonTint="@color/button_primary"
-                android:checked="true"
-                android:layout_marginEnd="16dp"/>
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:padding="16dp">
 
-            <RadioButton
-                android:id="@+id/radio_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="中等"
-                android:textColor="@color/text_primary"
-                android:buttonTint="@color/button_secondary"
-                android:layout_marginEnd="16dp"/>
+                <include
+                    layout="@layout/standard_mode_difficulty_selector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <RadioButton
-                android:id="@+id/radio_hard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="困难"
-                android:textColor="@color/text_primary"
-                android:buttonTint="@color/button_challenge"/>
-        </RadioGroup>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/start_standard_game_button"
+                    android:layout_width="240dp"
+                    android:layout_height="56dp"
+                    android:text="开始标准模式"
+                    android:drawableLeft="@drawable/ic_play_game"
+                    android:drawablePadding="12dp"
+                    app:backgroundTint="@color/button_primary"
+                    android:textColor="@color/text_white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp"/>
 
-        <Button
-            android:id="@+id/start_standard_game_button"
-            android:layout_width="240dp"
-            android:layout_height="56dp"
-            android:text="开始标准模式"
-            android:drawableStart="@drawable/ic_play_game"
-            android:drawablePadding="12dp"
-            android:background="@drawable/button_primary"
-            android:textColor="@color/text_white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:elevation="4dp"
-            android:layout_marginBottom="16dp"/>
+            </LinearLayout>
 
-        <Button
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/custom_mode_button"
             android:layout_width="240dp"
             android:layout_height="56dp"
             android:text="自定义模式"
-            android:drawableStart="@drawable/ic_custom_mode"
+            android:drawableLeft="@drawable/ic_custom_mode"
             android:drawablePadding="12dp"
-            android:background="@drawable/button_secondary"
+            app:backgroundTint="@color/button_secondary"
             android:textColor="@color/text_white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:elevation="4dp"
             android:layout_marginBottom="16dp"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/challenge_mode_button"
             android:layout_width="240dp"
             android:layout_height="56dp"
             android:text="极限迷宫挑战"
-            android:drawableStart="@drawable/ic_challenge_mode"
+            android:drawableLeft="@drawable/ic_challenge_mode"
             android:drawablePadding="12dp"
-            android:background="@drawable/button_challenge"
+            app:backgroundTint="@color/button_challenge"
             android:textColor="@color/text_white"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:elevation="4dp" />
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

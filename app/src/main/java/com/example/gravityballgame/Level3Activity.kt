@@ -84,7 +84,7 @@ class Level3Activity : LevelActivity() {
             baseX + baseWidth * 0.45f,
             baseY + baseHeight * 0.65f,
             baseX + baseWidth * 0.55f + trapSize,
-            baseY + baseHeight * 0.65f,
+            baseY + baseHeight * 0.65f + trapSize,
             isTrap = true
         ))
         

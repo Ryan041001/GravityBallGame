@@ -75,6 +75,12 @@ class CustomLevelActivity : LevelActivity() {
         // 创建自定义GameView实例
         customGameView = GameView(this)
         
+        // 设置小球初始位置 (在 createLevelElements 之前设置)
+        val screenWidth = resources.displayMetrics.widthPixels.toFloat()
+        val screenHeight = resources.displayMetrics.heightPixels.toFloat()
+        startX = screenWidth * 0.45f
+        startY = screenHeight * 0.1f
+        
         // 将GameView添加到自定义容器中
         customGameViewContainer.removeAllViews()
         customGameViewContainer.addView(customGameView)
@@ -83,8 +89,6 @@ class CustomLevelActivity : LevelActivity() {
         customGameViewContainer.visibility = View.VISIBLE
         
         // 创建关卡元素
-        val screenWidth = resources.displayMetrics.widthPixels.toFloat()
-        val screenHeight = resources.displayMetrics.heightPixels.toFloat()
         createLevelElements(screenWidth, screenHeight)
         
         // 设置GameView属性
@@ -132,8 +136,6 @@ class CustomLevelActivity : LevelActivity() {
         // 所有元素都由用户在设计模式中创建
         obstacles.clear()
         // 调整小球默认初始位置，使其更适应不同屏幕，并稍微偏离中心
-        startX = screenWidth * 0.45f 
-        startY = screenHeight * 0.1f
     }
     
     override fun onResume() {

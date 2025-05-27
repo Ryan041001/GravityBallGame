@@ -62,6 +62,10 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
     // 自定义元素访问同步锁
     private val customElementsLock = Any()
 
+    // 屏幕尺寸数据处理
+    private val screenWidth = resources.displayMetrics.widthPixels.toFloat()
+    private val screenHeight = resources.displayMetrics.heightPixels.toFloat()
+
     // 游戏事件回调监听器
     private var gameEventListener: GameEventListener? = null
 
@@ -498,15 +502,9 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
         isGameWon = false
         isGameLost = false
         gameStartTime = System.currentTimeMillis()
-        
-        // 根据模式设置不同的起始位置
-        if (!isDesigningMode) {
-            ball.reset(startX, startY)
-        } else {
-            val safeWidth = if (width > 0) width / 2f else 100f
-            val safeHeight = if (height > 0) 50f else 100f
-            ball.reset(safeWidth, safeHeight)
-        }
+
+        val safeStartY = if (height > 0) 50f else 100f
+        ball.reset(width / 2f, safeStartY)
     }
 
     /**
@@ -568,8 +566,7 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
         gameStartTime = System.currentTimeMillis()
         
         // 设置小球初始位置
-        val safeStartY = if (height > 0) 50f else 100f
-        ball.reset(width / 2f, safeStartY)
+        ball.reset(screenWidth * 0.45f, screenHeight * 0.1f)
         
         // 启动游戏
         setActive(true)
@@ -585,11 +582,8 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
             customObstacles.clear()
             customTraps.clear()
             customGoal = null
-            
-            // 重置小球位置但不改变游戏状态
-            val safeWidth = if (width > 0) width / 2f else 100f
-            val safeHeight = if (height > 0) 50f else 100f
-            ball.reset(safeWidth, safeHeight)
+
+            ball.reset(screenWidth * 0.45f, screenHeight * 0.1f)
             
             isGameWon = false
             isGameLost = false
@@ -610,8 +604,8 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
 
         this.isDesigningMode = isDesigning
         
-        // 模式切换时，确保游戏状态重置
-        resetGame()
+        // 如果切换到设计模式，将小球固定在起始位置
+        ball.reset(screenWidth * 0.45f, screenHeight * 0.1f)
         
         // 如果切换到游戏模式，需要暂时停用以便等待startCustomGame调用
         if (!isDesigning) {
