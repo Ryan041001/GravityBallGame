@@ -78,7 +78,7 @@ class CustomLevelActivity : LevelActivity() {
         // 设置小球初始位置 (在 createLevelElements 之前设置)
         val screenWidth = resources.displayMetrics.widthPixels.toFloat()
         val screenHeight = resources.displayMetrics.heightPixels.toFloat()
-        startX = screenWidth * 0.45f
+        startX = screenWidth * 0.45f  // 屏幕中央偏左上
         startY = screenHeight * 0.1f
         
         // 将GameView添加到自定义容器中

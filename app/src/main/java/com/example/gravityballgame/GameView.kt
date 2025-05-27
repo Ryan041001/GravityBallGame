@@ -503,8 +503,8 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
         isGameLost = false
         gameStartTime = System.currentTimeMillis()
 
-        val safeStartY = if (height > 0) 50f else 100f
-        ball.reset(width / 2f, safeStartY)
+        // 使用指定的起始位置而不是硬编码的值
+        ball.reset(startX, startY)
     }
 
     /**

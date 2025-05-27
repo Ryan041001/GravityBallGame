@@ -105,7 +105,7 @@ class Level2Activity : LevelActivity() {
         )
         
         // 设置起点位置
-        startX = screenWidth * 0.2f  // 左侧
+        startX = screenWidth * 0.2f  // 屏幕左上区域
         startY = screenHeight * 0.2f  // 靠上位置
     }
 }

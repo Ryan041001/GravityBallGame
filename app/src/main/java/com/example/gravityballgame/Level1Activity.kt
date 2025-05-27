@@ -87,7 +87,7 @@ class Level1Activity : LevelActivity() {
         )
         
         // 设置起点位置
-        startX = screenWidth * 0.5f  // 正中间
+        startX = screenWidth * 0.5f  // 屏幕中央偏上
         startY = screenHeight * 0.15f  // 靠上位置，更容易的起始点
     }
 }

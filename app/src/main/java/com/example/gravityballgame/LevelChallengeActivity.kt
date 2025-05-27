@@ -70,8 +70,8 @@ LevelActivity() {
         }
 
         // 设置小球起点坐标
-        startX = waypoints.first().first
-        startY = waypoints.first().second
+        startX = screenWidth * 0.1f  // 屏幕左上角
+        startY = screenHeight * 0.15f
 
         // 设置终点区域 (略大于路径宽度，便于小球进入)
         val goalPoint = waypoints.last()

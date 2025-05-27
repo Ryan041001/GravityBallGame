@@ -115,7 +115,7 @@ class Level3Activity : LevelActivity() {
         )
         
         // 设置起点位置
-        startX = screenWidth * 0.2f  // 左侧
+        startX = screenWidth * 0.2f  // 屏幕左上区域，比中等模式稍靠上
         startY = screenHeight * 0.15f  // 靠上位置
     }
 }
