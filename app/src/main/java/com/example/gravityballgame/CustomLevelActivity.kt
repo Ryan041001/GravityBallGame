@@ -365,6 +365,9 @@ class CustomLevelActivity : LevelActivity() {
             // 先确保游戏状态被重置
             customGameView.resetGame()
             
+            // 更新 GameView 的时间限制
+            customGameView.updateGameTimeLimit(customTimeLimit)
+
             // 设置为非设计模式
             customGameView.setDesignMode(false)
             
@@ -424,6 +427,11 @@ class CustomLevelActivity : LevelActivity() {
                 .setMessage(message)
                 .setPositiveButton("重试") { _, _ ->
                     if (::customGameView.isInitialized) {
+                        // 获取并更新GameView的时间限制
+                        val timeText = timeLimitInput.text.toString()
+                        val customTimeLimit = try { timeText.toInt() } catch (e: NumberFormatException) { 60 } // 默认值以防格式错误
+                        customGameView.updateGameTimeLimit(customTimeLimit)
+
                         customGameView.resetGame()
                         customGameView.setActive(true)
                     }

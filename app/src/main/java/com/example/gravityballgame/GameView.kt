@@ -349,7 +349,11 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
         }
         
         val timeText = "Time: $remainingTime s"
+        // 根据剩余时间设置文字颜色
+        textPaint.color = if (remainingTime > 5) Color.parseColor("#212121") else Color.RED
         canvas.drawText(timeText, 50f, 100f, textPaint)
+        // 恢复默认颜色
+        textPaint.color = Color.parseColor("#212121")
         
         // 绘制游戏状态信息
         if (isGameWon) {
@@ -495,16 +499,16 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
     }
 
     /**
-     * 重置游戏状态
-     * 恢复初始位置和状态，准备开始新一轮游戏
+     * 重置游戏状态，回到初始设置
      */
     fun resetGame() {
+        ball.reset(startX, startY) // 将小球位置重置为起始位置
         isGameWon = false
         isGameLost = false
-        gameStartTime = System.currentTimeMillis()
-
-        // 使用指定的起始位置而不是硬编码的值
-        ball.reset(startX, startY)
+        // 在重置位置后清除小球的速度和加速度
+        ball.setAcceleration(0f, 0f)
+        // 重新激活游戏，这会自动重置计时器
+        setActive(true)
     }
 
     /**
@@ -645,9 +649,7 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
         if (active) {
             if (!isDesigningMode) {
                 sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME)
-                if (gameStartTime == 0L) {
-                    gameStartTime = System.currentTimeMillis()
-                }
+                gameStartTime = System.currentTimeMillis()
             }
         } else {
             sensorManager.unregisterListener(this)
@@ -672,6 +674,14 @@ class GameView(context: Context) : SurfaceView(context), SurfaceHolder.Callback,
      */
     fun setAcceleration(x: Float, y: Float) {
         ball.setAcceleration(x, y)
+    }
+
+    /**
+     * 更新游戏模式的时间限制
+     * 用于在游戏过程中动态修改时间限制
+     */
+    fun updateGameTimeLimit(timeLimit: Int) {
+        this.timeLimit = timeLimit
     }
 
     /**
