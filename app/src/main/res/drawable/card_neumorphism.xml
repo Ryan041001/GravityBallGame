@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 外阴影 (底部右侧) -->
+    <item
+        android:left="6dp"
+        android:top="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#D0D0D0" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+    
+    <!-- 内阴影 (顶部左侧高光) -->
+    <item
+        android:right="6dp"
+        android:bottom="6dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+    
+    <!-- 主卡片 -->
+    <item
+        android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#FAFAFA"
+                android:endColor="#F0F0F0"
+                android:angle="135" />
+            <corners android:radius="21dp" />
+        </shape>
+    </item>
+</layer-list>
