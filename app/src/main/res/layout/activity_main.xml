@@ -66,27 +66,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/start_standard_game_button"
                 android:layout_width="260dp"
                 android:layout_height="64dp"
-                android:text="开始标准模式"
-                android:drawableLeft="@drawable/ic_play_game"
-                android:drawablePadding="16dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/button_neumorphism_primary"
+                android:drawableStart="@drawable/ic_play_game"
+                android:drawablePadding="16dp"
+                android:text="开始标准模式"
                 android:textColor="@color/button_primary"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/custom_mode_button"
             android:layout_width="260dp"
             android:layout_height="64dp"
             android:text="自定义模式"
-            android:drawableLeft="@drawable/ic_custom_mode"
+            android:drawableStart="@drawable/ic_custom_mode"
             android:drawablePadding="16dp"
             android:background="@drawable/button_neumorphism_secondary"
             android:textColor="@color/button_secondary"
@@ -94,12 +94,12 @@
             android:textStyle="bold"
             android:layout_marginBottom="20dp"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/challenge_mode_button"
             android:layout_width="260dp"
             android:layout_height="64dp"
             android:text="极限迷宫挑战"
-            android:drawableLeft="@drawable/ic_challenge_mode"
+            android:drawableStart="@drawable/ic_challenge_mode"
             android:drawablePadding="16dp"
             android:background="@drawable/button_neumorphism_challenge"
             android:textColor="@color/button_challenge"

@@ -61,27 +61,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/login_button"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_weight="1"
             android:text="登录"
             android:background="@drawable/button_neumorphism_primary"
-            android:textColor="@color/button_primary"
+            android:textColor="@color/text_primary"
             android:textStyle="bold"
             android:textSize="16sp"
             android:elevation="6dp"
             android:layout_marginEnd="12dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/register_button"
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:layout_weight="1"
             android:text="注册"
-            android:background="@drawable/button_secondary"
-            android:textColor="@color/text_white"
+            android:background="@drawable/button_neumorphism_secondary"
+            android:textColor="@color/text_primary"
             android:textStyle="bold"
             android:textSize="16sp"
             android:elevation="6dp"

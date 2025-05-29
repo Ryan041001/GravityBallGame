@@ -118,39 +118,39 @@
                     android:inputType="number" />
             </LinearLayout>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/clear_design_button"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:text="清除设计"
                 android:background="@drawable/button_neumorphism_challenge"
-                android:textColor="@color/text_white"
+                android:textColor="@color/text_secondary"
                 android:paddingHorizontal="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time_limit_layout" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/start_custom_game_button"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:text="开始游戏"
                 android:background="@drawable/button_neumorphism_primary"
-                android:textColor="@color/text_white"
+                android:textColor="@color/text_secondary"
                 android:paddingHorizontal="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/back_to_menu_from_custom_button"
                 app:layout_constraintStart_toEndOf="@+id/clear_design_button"
                 app:layout_constraintTop_toBottomOf="@+id/time_limit_layout" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/back_to_menu_from_custom_button"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:text="返回菜单"
                 android:background="@drawable/button_neumorphism_secondary"
-                android:textColor="@color/text_white"
+                android:textColor="@color/text_secondary"
                 android:paddingHorizontal="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/time_limit_layout" />
