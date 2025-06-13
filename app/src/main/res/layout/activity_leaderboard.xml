@@ -20,25 +20,108 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="4"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+
+
+    <!-- 筛选器和控制按钮 -->
+    <LinearLayout
+        android:id="@+id/controlLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 关卡类型选择器 -->
+        <Spinner
+            android:id="@+id/spinnerLevelType"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/card_neumorphism"
+            android:padding="8dp"
+            android:visibility="gone" />
+
+        <!-- 刷新按钮 -->
+        <Button
+            android:id="@+id/buttonRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="刷新"
+            android:textSize="10sp"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/text_white"
+            android:layout_marginStart="8dp" />
+
+        <!-- 个人成绩按钮 -->
+        <Button
+            android:id="@+id/buttonMyScores"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="我的成绩"
+            android:textSize="10sp"
+            android:background="@drawable/button_primary"
+            android:textColor="@color/text_white"
+            android:layout_marginStart="8dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- 状态显示 -->
+    <LinearLayout
+        android:id="@+id/statusLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@id/controlLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="挑战模式在线排行榜"
+            android:textSize="12sp"
+            android:textColor="@color/text_white"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        android:background="@drawable/card_neumorphism"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/card_neumorphism"
-        android:orientation="vertical"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@id/leaderboard_title"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/statusLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
         
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/leaderboard_recycler_view"

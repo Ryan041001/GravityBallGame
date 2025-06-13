@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/card_background"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <!-- 排名 -->
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/card_neumorphism">
+            
+            <TextView
+                android:id="@+id/rank_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/text_white" />
+                
+        </LinearLayout>
+
+        <!-- 用户信息和成绩 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <!-- 用户名 -->
+            <TextView
+                android:id="@+id/username_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="👤 用户名"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <!-- 关卡信息 -->
+            <TextView
+                android:id="@+id/level_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🎯 挑战模式"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:alpha="0.8"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <!-- 成绩信息 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end">
+
+            <!-- 分数 -->
+            <TextView
+                android:id="@+id/score_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🏆 1000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary" />
+
+            <!-- 时间 -->
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⏱️ 30.5s"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:alpha="0.8"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

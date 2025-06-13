@@ -19,9 +19,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
-import com.example.gravityballgame.data.AppDatabase
 import com.example.gravityballgame.data.User
 import com.example.gravityballgame.data.UserSessionManager
+import com.example.gravityballgame.network.NetworkService
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -41,15 +41,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var userSessionManager: UserSessionManager
-    private lateinit var userDao: com.example.gravityballgame.data.UserDao
+    private lateinit var networkService: NetworkService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         
-        // 初始化数据库和用户会话管理器
-        userDao = AppDatabase.getDatabase(this).userDao()
+        // 初始化用户会话管理器和网络服务
         userSessionManager = UserSessionManager(this)
+        networkService = NetworkService(this)
         
         // 初始化视图
         difficultyRadioGroup = findViewById(R.id.difficulty_radio_group)
@@ -148,17 +148,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val username = userSessionManager.getUsername()
             usernameTextView.text = username
             
-            // 获取用户最佳成绩
+            // 从网络获取用户最佳成绩
             lifecycleScope.launch {
                 val userId = userSessionManager.getUserId()
-                val user = userDao.getUserById(userId)
-                if (user != null && user.bestChallengeTime > 0) {
-                    val minutes = TimeUnit.MILLISECONDS.toMinutes(user.bestChallengeTime)
-                    val seconds = TimeUnit.MILLISECONDS.toSeconds(user.bestChallengeTime) % 60
-                    val millis = user.bestChallengeTime % 1000
-                    bestTimeTextView.text = String.format("最佳成绩: %02d:%02d.%03d", minutes, seconds, millis)
-                } else {
-                    bestTimeTextView.text = "最佳成绩: 暂无"
+                try {
+                    val result = networkService.getUserScores(userId.toInt(), "challenge")
+                    when (result) {
+                        is NetworkService.ApiResult.Success -> {
+                            val scores = result.data.second
+                            // 找出最佳完成时间
+                            val bestScore = scores.minByOrNull { it.completionTime }
+                            if (bestScore != null) {
+                                val completionTime = (bestScore.completionTime * 1000).toLong() // 转换为毫秒
+                                val minutes = TimeUnit.MILLISECONDS.toMinutes(completionTime)
+                                val seconds = TimeUnit.MILLISECONDS.toSeconds(completionTime) % 60
+                                val millis = completionTime % 1000
+                                bestTimeTextView.text = String.format("最佳成绩: %02d:%02d.%03d", minutes, seconds, millis)
+                            } else {
+                                bestTimeTextView.text = "最佳成绩: 暂无"
+                            }
+                        }
+                        is NetworkService.ApiResult.Error -> {
+                            bestTimeTextView.text = "最佳成绩: 获取失败"
+                            Toast.makeText(this@MainActivity, "获取成绩失败：${result.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    bestTimeTextView.text = "最佳成绩: 获取失败"
+                    Toast.makeText(this@MainActivity, "获取成绩失败：${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
             
@@ -220,18 +237,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 return@setOnClickListener
             }
             
-            // 执行登录
+            // 显示加载提示
+            val loadingDialog = AlertDialog.Builder(this)
+                .setMessage("正在登录...")
+                .setCancelable(false)
+                .create()
+            loadingDialog.show()
+            
+            // 执行在线登录
             lifecycleScope.launch {
-                val user = userDao.login(username, password)
-                if (user != null) {
-                    // 登录成功
-                    userSessionManager.saveUserLoginSession(user.id, user.username)
-                    updateNavigationHeader()
-                    Toast.makeText(this@MainActivity, "登录成功", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                } else {
-                    // 登录失败
-                    Toast.makeText(this@MainActivity, "用户名或密码错误", Toast.LENGTH_SHORT).show()
+                try {
+                    // 先尝试在线登录
+                    val result = networkService.login(username, password)
+                    loadingDialog.dismiss()
+                    
+                    when (result) {
+                        is NetworkService.ApiResult.Success -> {
+                            // 在线登录成功
+                            val onlineUser = result.data
+                            
+                            // 保存登录会话 (userId 从在线登录结果获取)
+                            userSessionManager.saveUserLoginSession(onlineUser.id.toLong(), username)
+                            updateNavigationHeader()
+                            Toast.makeText(this@MainActivity, "在线登录成功", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }
+                        is NetworkService.ApiResult.Error -> {
+                            // 在线登录失败
+                            Toast.makeText(this@MainActivity, "登录失败：${result.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    loadingDialog.dismiss()
+                    // 发生异常
+                    Toast.makeText(this@MainActivity, "登录失败：${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -246,22 +285,44 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 return@setOnClickListener
             }
             
+            // 显示加载提示
+            val loadingDialog = AlertDialog.Builder(this)
+                .setMessage("正在注册...")
+                .setCancelable(false)
+                .create()
+            loadingDialog.show()
+            
             // 执行注册
             lifecycleScope.launch {
-                val existingUser = userDao.getUserByUsername(username)
-                if (existingUser != null) {
-                    // 用户名已存在
-                    Toast.makeText(this@MainActivity, "用户名已存在", Toast.LENGTH_SHORT).show()
-                } else {
-                    // 创建新用户
-                    val newUser = User(username = username, password = password)
-                    val userId = userDao.insertUser(newUser)
+                try {
+                    // 尝试在线注册
+                    val result = networkService.register(username, password)
+                    loadingDialog.dismiss()
                     
-                    // 自动登录
-                    userSessionManager.saveUserLoginSession(userId, username)
-                    updateNavigationHeader()
-                    Toast.makeText(this@MainActivity, "注册成功并已登录", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
+                    when (result) {
+                        is NetworkService.ApiResult.Success -> {
+                            // 在线注册成功，自动登录 (userId 从在线注册结果获取，如果API返回的话)
+                            // 假设注册成功后，登录接口可以直接使用，或者注册接口返回用户ID
+                            // 这里暂时不处理userId，因为UserSessionManager保存的是后台的userId
+                            // 如果注册接口不直接返回userId，可能需要再次调用登录接口获取
+                            // 或者修改UserSessionManager.saveUserLoginSession，如果 username 唯一且后端支持通过username获取id
+                            // 简单处理：直接使用注册成功返回的用户名，ID由UserSessionManager内部处理或后续登录时获取
+                            // 实际上，注册成功后，应该用返回的用户信息（包含ID）来保存会话
+                            // 这里假设 networkService.register 返回的 User 对象包含 id
+                            userSessionManager.saveUserLoginSession(result.data.id.toLong(), username) // 假设 result.data 是 User 类型且有 id
+                            updateNavigationHeader()
+                            Toast.makeText(this@MainActivity, "在线注册成功并已登录", Toast.LENGTH_SHORT).show()
+                            dialog.dismiss()
+                        }
+                        is NetworkService.ApiResult.Error -> {
+                            // 在线注册失败
+                            Toast.makeText(this@MainActivity, "注册失败：${result.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } catch (e: Exception) {
+                    loadingDialog.dismiss()
+                    // 发生异常
+                    Toast.makeText(this@MainActivity, "注册失败：${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
