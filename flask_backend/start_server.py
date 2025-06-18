@@ -47,8 +47,8 @@ def start_flask_app():
     app_file = Path(__file__).parent / 'app.py'
     if app_file.exists():
         print("正在启动Flask服务器...")
-        print("服务器地址: http://localhost:5000")
-        print("API文档: http://localhost:5000/api/health")
+        print("服务器地址: http://localhost:5001")
+        print("API文档: http://localhost:5001/api/health")
         print("按 Ctrl+C 停止服务器")
         print("-" * 50)
         

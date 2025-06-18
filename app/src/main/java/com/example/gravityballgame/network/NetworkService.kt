@@ -21,7 +21,7 @@ class NetworkService(private val context: Context) {
     companion object {
         private const val TAG = "NetworkService"
         // 服务器地址 - 请根据实际情况修改
-        private const val BASE_URL = "http://192.168.159.212:5001/api" // 本机实际IP地址
+        private const val BASE_URL = "http://192.168.31.90:5001/api" // 本机实际IP地址
         
         private const val TIMEOUT_CONNECT = 30000 // 连接超时 30秒
         private const val TIMEOUT_READ = 30000 // 读取超时 30秒
